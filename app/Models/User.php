@@ -97,7 +97,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants
         // };
         if ($panel->getId() === 'admin' && $roles->contains('super_admin')) {
             return true;
-        }else if ($panel->getId() === 'admin' && $roles->contains('pengurus')) {
+        }else if ($panel->getId() === 'user' && $roles->contains('warga')) {
             return true;
         }else{
             return false;
