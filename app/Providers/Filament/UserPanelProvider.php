@@ -20,6 +20,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Jeffgreco13\FilamentBreezy\BreezyCore;
 
 class UserPanelProvider extends PanelProvider
 {
@@ -38,6 +39,15 @@ class UserPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Blue
             ])
+            ->plugin(
+                BreezyCore::make()
+                ->myProfile(
+                    shouldRegisterUserMenu: true,
+                    shouldRegisterNavigation: false,
+                    hasAvatars: false,
+                    slug: 'user-profile'
+                )
+            )
             ->discoverResources(in: app_path('Filament/User/Resources'), for: 'App\\Filament\\User\\Resources')
             ->discoverPages(in: app_path('Filament/User/Pages'), for: 'App\\Filament\\User\\Pages')
             ->pages([
