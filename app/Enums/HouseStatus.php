@@ -4,11 +4,9 @@ namespace App\Enums;
 
 use Filament\Support\Contracts\HasLabel;
 
-enum EconomicStatus: string implements HasLabel
+enum HouseStatus: string implements HasLabel
 {
-    case Keluarga_ekonomi_kurang_mampu = 'kurang_mampu';
-    case Keluarga_ekonomi_menengah = 'menengah';
-    case Keluarga_ekonomi_mampu = 'mampu';
+    case Tempat_Tinggal = 'tempat_tinggal';
 
     public function getLabel(): ?string
     {
