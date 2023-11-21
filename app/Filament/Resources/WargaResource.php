@@ -6,12 +6,14 @@ use App\Enums\BloodType;
 use App\Enums\FamilyStatus;
 use App\Enums\GenderType;
 use App\Enums\ReligionList;
+use App\Event\CreateUserEvent;
 use App\Filament\Resources\WargaResource\Pages;
 use App\Filament\Resources\WargaResource\RelationManagers;
 use App\Models\Building;
 use App\Models\Education;
 use App\Models\Employment;
 use App\Models\Rtrw;
+use App\Models\User;
 use App\Models\Warga;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -24,6 +26,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -256,7 +259,23 @@ class WargaResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('create_user')
+                    ->label('Buat Akun')
+                    ->icon('heroicon-m-user-plus')
+                    ->color('info')
+                    ->visible(function (Warga $record) {
+                        return !User::where('warga_id', $record->id)->exists();
+                    })
+                    ->requiresConfirmation()
+                    ->action(function (Warga $record) {
+                        event(new CreateUserEvent($record));
+                        Notification::make()
+                            ->title('Berhasil Buat Akun')
+                            ->success()
+                            ->send();
+                    }),
                 Tables\Actions\EditAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
