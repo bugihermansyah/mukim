@@ -19,9 +19,9 @@ class EmploymentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
     
-    protected static ?string $navigationLabel = 'Jenis Pekerjaan';
+    protected static ?string $navigationLabel = 'Pekerjaan';
 
-    protected static ?string $pluralModelLabel = 'Jenis Pekerjaan';
+    protected static ?string $pluralModelLabel = 'Pekerjaan';
     
     protected static ?string $navigationGroup = 'Manajemen Warga';
     

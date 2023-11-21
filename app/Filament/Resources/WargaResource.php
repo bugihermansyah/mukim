@@ -85,8 +85,7 @@ class WargaResource extends Resource
                                     ->label('NIK')
                                     ->placeholder('Nomor Induk Kependudukan')
                                     ->numeric()
-                                    ->length(16)
-                                    ->required(),
+                                    ->length(16),
                                 TextInput::make('full_name')
                                     ->label('Nama lengkap')
                                     ->placeholder('Nama lengkap sesuai KTP')
@@ -103,7 +102,7 @@ class WargaResource extends Resource
                                     ->options(ReligionList::class)
                                     ->searchable()
                                     ->required(),
-                                Select::make('work_type')
+                                Select::make('employment_id')
                                     ->label('Pekerjaan')
                                     ->options(Employment::query()->pluck('name','id'))
                                     ->searchable()
@@ -130,20 +129,16 @@ class WargaResource extends Resource
                             ->schema([
                                 Textarea::make('address')
                                     ->label('Alamat')
-                                    ->columnSpan('full')
-                                    ->required(),
+                                    ->columnSpan('full'),
 
                                 TextInput::make('rtrw')
-                                    ->label('RT/RW')
-                                    ->required(),
+                                    ->label('RT/RW'),
 
                                 TextInput::make('village')
-                                    ->label('Kel/Desa')
-                                    ->required(),
+                                    ->label('Kel/Desa'),
 
-                                TextInput::make('security_stock')
-                                    ->label('Kecamatan')
-                                    ->required(),
+                                TextInput::make('subdistrict')
+                                    ->label('Kecamatan'),
                             ])
                             ->columns(3),
                     ])
@@ -236,10 +231,10 @@ class WargaResource extends Resource
                 TextColumn::make('blood_type')
                     ->label('Gol. Darah')
                     ->searchable(),
-                TextColumn::make('work_type')
+                TextColumn::make('employment.name')
                     ->label('Pekerjaan')
                     ->searchable(),
-                TextColumn::make('education')
+                TextColumn::make('education.name')
                     ->label('Pendidikan')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
