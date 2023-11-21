@@ -12,11 +12,13 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Builder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Traits\HasRoles;
@@ -34,6 +36,8 @@ class User extends Authenticatable implements FilamentUser, HasTenants
         'name',
         'email',
         'password',
+        'building_id',
+        'warga_id'
     ];
 
     /**
@@ -56,6 +60,17 @@ class User extends Authenticatable implements FilamentUser, HasTenants
         'password' => 'hashed',
     ];
 
+    // protected static function booted(): void
+    // {
+    //     if (auth()->check()) {
+    //         static::addGlobalScope('buildings', function (Builder $query) {
+    //             $query->where('building_id', auth()->user()->building_id);
+    //             // or with a `team` relationship defined:
+    //             $query->whereBelongsTo(auth()->user()->buildings);
+    //         });
+    //     }
+    // }
+
     public function rtrws() : BelongsToMany 
     {
         return $this->belongsToMany(Rtrw::class);
@@ -71,9 +86,14 @@ class User extends Authenticatable implements FilamentUser, HasTenants
     //     return $this->rtrws->contains($tenant);
     // }
 
-    public function buildings() : BelongsToMany 
+    // public function buildings() : BelongsToMany 
+    // {
+    //     return $this->belongsToMany(Building::class);
+    // }
+
+    public function buildings(): HasMany
     {
-        return $this->belongsToMany(Building::class);
+        return $this->hasMany(Building::class, 'id', 'building_id');
     }
     
     public function getTenants(Panel $panel): array|Collection

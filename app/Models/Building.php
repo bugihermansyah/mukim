@@ -34,11 +34,16 @@ class Building extends Model implements HasName
         return "{$this->block}/{$this->number}";
     }
 
-    public function users(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class);
-    }   
+    // public function users(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(User::class);
+    // }   
     
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function vehicles(): BelongsToMany
     {
         return $this->belongsToMany(Vehicle::class);
