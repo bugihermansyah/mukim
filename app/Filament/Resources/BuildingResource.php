@@ -2,15 +2,23 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\EconomicStatus;
+use App\Enums\HouseStatus;
+use App\Enums\HunianStatus;
 use App\Filament\Resources\BuildingResource\Pages;
 use App\Filament\Resources\BuildingResource\RelationManagers;
 use App\Models\Building;
-use Filament\Facades\Filament;
+use App\Models\Rtrw;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Grouping\Group;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Grouping\Group;
+use Filament\Tables\Columns\SelectColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -25,23 +33,69 @@ class BuildingResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Rumah';
     
+    protected static ?string $modelLabel = 'Rumah';
+    
     protected static ?string $navigationGroup = 'Manajemen Warga';
-
+    
+    protected static ?string $recordTitleAttribute = 'slug';
+    
     protected static ?int $navigationSort = -1;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                // Forms\Components\TextInput::make('rtrw_id')
-                //     ->label('RT/RW'))
-                //     ->required(),
-                Forms\Components\TextInput::make('block')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('number')
-                    ->required()
-                    ->maxLength(255),
+                Section::make()
+                    ->schema([
+                        Select::make('rtrw_id')
+                            ->label('RT/RW')
+                            ->relationship(name: 'rtrw', titleAttribute: 'name')
+                            ->required(),
+                        TextInput::make('block')
+                            ->label('Blok')
+                            ->live()
+                            ->formatStateUsing(fn ($state) => strtoupper($state))
+                            ->extraInputAttributes(['style' => 'text-transform: uppercase'])
+                            ->afterStateUpdated(fn ($get, $set) => $set('slug', $get('block') . '/' . $get('number')))
+                            ->required(),
+                        TextInput::make('number')
+                            ->label('Nomor')
+                            ->live()
+                            // ->extraInputAttributes(['style' => 'text-transform: uppercase'])
+                            ->afterStateUpdated(fn ($get, $set) => $set('slug', $get('block') . '/' . $get('number')))
+                            ->required(),
+                        TextInput::make('slug')
+                            ->label('Slug')
+                            // ->extraInputAttributes(['style' => 'text-transform: uppercase'])
+                            // ->disabled()
+                            ->unique(ignoreRecord: true, column: 'slug')
+                            ->required(),
+                    ])
+                    ->columns(4),
+                Section::make()
+                    ->schema([
+                        TextInput::make('owner')
+                            ->label('Pemilik')
+                            ->required(),
+                        Select::make('is_used')
+                            ->label('Penggunaan rumah')
+                            ->options(HunianStatus::class)
+                            ->required(),
+                        TextInput::make('rate')
+                            ->label('Iuran IPL')
+                            ->prefix('Rp')
+                            ->currencyMask(thousandSeparator: '.',decimalSeparator: ',',precision: 0)
+                            ->required(),
+                        Select::make('is_house')
+                            ->label('Status Hunian')
+                            ->options(HouseStatus::class)
+                            ->required(),
+                        Select::make('is_economic')
+                            ->label('Status ekonomi keluarga')
+                            ->options(EconomicStatus::class)
+                            ->required(),
+                    ])
+                    ->columns(2),
             ]);
     }
 
@@ -57,21 +111,37 @@ class BuildingResource extends Resource
                     ->collapsible(),
             ])
             ->columns([
-                Tables\Columns\TextColumn::make('rtrw.name')
+                TextColumn::make('rtrw.name')
                     ->label('RT/RW')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('block')
+                TextColumn::make('block')
                     ->label('Blok')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('number')
+                TextColumn::make('number')
                     ->label('Nomor')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('owner')
+                    ->label('Pemilik')
+                    ->searchable(),
+                TextColumn::make('is_used')
+                    ->label('Status Penggunaan')
+                    ->searchable(),
+                TextColumn::make('is_house')
+                    ->label('Status Hunian')
+                    ->searchable(),
+                TextColumn::make('is_economic')
+                    ->label('Status ekonomi keluarga')
+                    ->searchable(),
+                TextColumn::make('rate')
+                    ->label('Iuran IPL')
+                    ->currency('IDR')
+                    ->sortable(),
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -96,19 +166,20 @@ class BuildingResource extends Resource
                 Tables\Actions\CreateAction::make(),
             ]);
     }
-    
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageBuildings::route('/'),
+            'index' => Pages\ListBuildings::route('/'),
+            'create' => Pages\CreateBuilding::route('/create'),
+            'edit' => Pages\EditBuilding::route('/{record}/edit'),
         ];
-    }    
-    
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
     }
 }

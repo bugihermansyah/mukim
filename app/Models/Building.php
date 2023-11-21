@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\EconomicStatus;
+use App\Enums\HouseStatus;
+use App\Enums\HunianStatus;
 use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,15 +32,16 @@ class Building extends Model implements HasName
         'rtrw_id'
     ];
 
+    protected $casts = [
+        'is_used' => HunianStatus::class,
+        'is_house' => HouseStatus::class,
+        'is_economic' => EconomicStatus::class,
+    ];
+
     public function getFilamentName(): string
     {
         return "{$this->block}/{$this->number}";
     }
-
-    // public function users(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(User::class);
-    // }   
     
     public function user(): BelongsTo
     {
