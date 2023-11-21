@@ -181,9 +181,4 @@ class KeluargaResource extends Resource
             'edit' => Pages\EditKeluarga::route('/{record}/edit'),
         ];
     }
-    
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::count();
-    }
 }

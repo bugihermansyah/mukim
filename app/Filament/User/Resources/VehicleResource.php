@@ -69,6 +69,7 @@ class VehicleResource extends Resource
                     ->searchable(),
                 TextColumn::make('type')
                     ->label('Kendaraan')
+                    ->sortable()
                     ->formatStateUsing(fn (string $state): string => ucwords(__("{$state}")))
                     ->searchable(),
                 TextColumn::make('merk_type')
@@ -76,7 +77,7 @@ class VehicleResource extends Resource
                     ->searchable(),
                 TextColumn::make('color')
                     ->label('Warna')
-                    ->formatStateUsing(fn (string $state): string => ucwords(__("{$state}")))
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -141,10 +142,5 @@ class VehicleResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
-    }
-
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::count();
     }
 }
