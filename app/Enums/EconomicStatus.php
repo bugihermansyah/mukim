@@ -6,12 +6,16 @@ use Filament\Support\Contracts\HasLabel;
 
 enum EconomicStatus: string implements HasLabel
 {
-    case Keluarga_ekonomi_kurang_mampu = 'kurang_mampu';
-    case Keluarga_ekonomi_menengah = 'menengah';
-    case Keluarga_ekonomi_mampu = 'mampu';
+    case KurangMampu = 'kurang_mampu';
+    case Menengah = 'menengah';
+    case Mampu = 'mampu';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
-        return str($this->name)->replace('_', ' ')->title()->__toString();
+        return match ($this) {
+            self::KurangMampu => 'Keluarga Ekonomi Kurang Mampu',
+            self::Menengah => 'Keluarga Ekonomi Menengah',
+            self::Mampu => 'Keluarga Ekonomi Mampu',
+        };
     }
 }

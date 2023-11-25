@@ -6,12 +6,16 @@ use Filament\Support\Contracts\HasLabel;
 
 enum HunianStatus: string implements HasLabel
 {
-    case Tempat_Tinggal = 'tempat_tinggal';
+    case TempatTinggal = 'tempat tinggal';
+    case Kantor = 'kantor';
+    case Gudang = 'gudang';
 
     public function getLabel(): string
     {
         return match ($this) {
-            self::Tempat_Tinggal => 'Tempat Tinggal',
+            self::TempatTinggal => 'Tempat Tinggal',
+            self::Kantor => 'Kantor',
+            self::Gudang => 'Gudang',
         };
     }
 

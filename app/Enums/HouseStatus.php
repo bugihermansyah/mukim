@@ -6,13 +6,18 @@ use Filament\Support\Contracts\HasLabel;
 
 enum HouseStatus: string implements HasLabel
 {
-    case Pribadi_Keluarga = 'pribadi';
-    case Kontrakan_Sewa = 'kontrakan';
+    case Pribadi = 'pribadi';
+    case Sewa = 'kontrakan';
     case Panti = 'panti';
     case Kost = 'kost';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
-        return str($this->name)->replace('_', ' / ')->title()->__toString();
+        return match ($this) {
+            self::Pribadi => 'Pribadi / Keluarga',
+            self::Sewa => 'Kontrakan / Sewa',
+            self::Panti => 'Rumah Panti',
+            self::Kost => 'Rumah Kost',
+        };
     }
 }
