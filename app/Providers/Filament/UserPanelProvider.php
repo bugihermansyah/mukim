@@ -28,12 +28,15 @@ class UserPanelProvider extends PanelProvider
     {
         return $panel
             ->id('user')
-            ->path('user')
+            ->path('/')
             ->login()
             ->topNavigation()
             ->tenant(Building::class)
-            ->tenantRoutePrefix('warga')
+            ->tenantRoutePrefix('rumah')
             ->tenantProfile(EditBuildingProfile::class)
+            ->tenantMenuItems([
+                'profile' => MenuItem::make()->icon('heroicon-o-information-circle')->label('Informasi Rumah'),
+            ])
             ->brandName('Cluster Pisang')
             ->colors([
                 'primary' => Color::Blue
@@ -47,6 +50,7 @@ class UserPanelProvider extends PanelProvider
                     slug: 'user-profile'
                 )
             )
+            ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/User/Resources'), for: 'App\\Filament\\User\\Resources')
             ->discoverPages(in: app_path('Filament/User/Pages'), for: 'App\\Filament\\User\\Pages')
             ->pages([
