@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Building;
+use App\Models\Rtrw;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class BuildingPolicy
+class RtrwPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class BuildingPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_building');
+        return $user->can('view_any_rtrw');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Building  $building
+     * @param  \App\Models\Rtrw  $rtrw
      * @return bool
      */
-    public function view(User $user, Building $building): bool
+    public function view(User $user, Rtrw $rtrw): bool
     {
-        return $user->can('view_building');
+        return $user->can('view_rtrw');
     }
 
     /**
@@ -41,31 +41,31 @@ class BuildingPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_building');
+        return $user->can('create_rtrw');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Building  $building
+     * @param  \App\Models\Rtrw  $rtrw
      * @return bool
      */
-    public function update(User $user, Building $building): bool
+    public function update(User $user, Rtrw $rtrw): bool
     {
-        return $user->can('update_building');
+        return $user->can('update_rtrw');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Building  $building
+     * @param  \App\Models\Rtrw  $rtrw
      * @return bool
      */
-    public function delete(User $user, Building $building): bool
+    public function delete(User $user, Rtrw $rtrw): bool
     {
-        return $user->can('delete_building');
+        return $user->can('delete_rtrw');
     }
 
     /**
@@ -76,19 +76,19 @@ class BuildingPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_building');
+        return $user->can('delete_any_rtrw');
     }
 
     /**
      * Determine whether the user can permanently delete.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Building  $building
+     * @param  \App\Models\Rtrw  $rtrw
      * @return bool
      */
-    public function forceDelete(User $user, Building $building): bool
+    public function forceDelete(User $user, Rtrw $rtrw): bool
     {
-        return $user->can('force_delete_building');
+        return $user->can('force_delete_rtrw');
     }
 
     /**
@@ -99,19 +99,19 @@ class BuildingPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_building');
+        return $user->can('force_delete_any_rtrw');
     }
 
     /**
      * Determine whether the user can restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Building  $building
+     * @param  \App\Models\Rtrw  $rtrw
      * @return bool
      */
-    public function restore(User $user, Building $building): bool
+    public function restore(User $user, Rtrw $rtrw): bool
     {
-        return $user->can('restore_building');
+        return $user->can('restore_rtrw');
     }
 
     /**
@@ -122,17 +122,17 @@ class BuildingPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_building');
+        return $user->can('restore_any_rtrw');
     }
 
     /**
      * Determine whether the user can replicate.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Building  $building
+     * @param  \App\Models\Rtrw  $rtrw
      * @return bool
      */
-    public function replicate(User $user, Building $building): bool
+    public function replicate(User $user, Rtrw $rtrw): bool
     {
         return $user->can('{{ Replicate }}');
     }
@@ -145,7 +145,7 @@ class BuildingPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_building');
+        return $user->can('reorder_rtrw');
     }
 
 }

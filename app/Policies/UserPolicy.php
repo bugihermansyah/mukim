@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Building;
+
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class BuildingPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,18 @@ class BuildingPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_building');
+        return $user->can('view_any_user');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Building  $building
      * @return bool
      */
-    public function view(User $user, Building $building): bool
+    public function view(User $user): bool
     {
-        return $user->can('view_building');
+        return $user->can('view_user');
     }
 
     /**
@@ -41,31 +40,29 @@ class BuildingPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_building');
+        return $user->can('create_user');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Building  $building
      * @return bool
      */
-    public function update(User $user, Building $building): bool
+    public function update(User $user): bool
     {
-        return $user->can('update_building');
+        return $user->can('update_user');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Building  $building
      * @return bool
      */
-    public function delete(User $user, Building $building): bool
+    public function delete(User $user): bool
     {
-        return $user->can('delete_building');
+        return $user->can('delete_user');
     }
 
     /**
@@ -76,19 +73,18 @@ class BuildingPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_building');
+        return $user->can('delete_any_user');
     }
 
     /**
      * Determine whether the user can permanently delete.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Building  $building
      * @return bool
      */
-    public function forceDelete(User $user, Building $building): bool
+    public function forceDelete(User $user): bool
     {
-        return $user->can('force_delete_building');
+        return $user->can('force_delete_user');
     }
 
     /**
@@ -99,19 +95,18 @@ class BuildingPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_building');
+        return $user->can('force_delete_any_user');
     }
 
     /**
      * Determine whether the user can restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Building  $building
      * @return bool
      */
-    public function restore(User $user, Building $building): bool
+    public function restore(User $user): bool
     {
-        return $user->can('restore_building');
+        return $user->can('restore_user');
     }
 
     /**
@@ -122,17 +117,16 @@ class BuildingPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_building');
+        return $user->can('restore_any_user');
     }
 
     /**
-     * Determine whether the user can replicate.
+     * Determine whether the user can bulk restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Building  $building
      * @return bool
      */
-    public function replicate(User $user, Building $building): bool
+    public function replicate(User $user): bool
     {
         return $user->can('{{ Replicate }}');
     }
@@ -145,7 +139,6 @@ class BuildingPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_building');
+        return $user->can('reorder_user');
     }
-
 }
