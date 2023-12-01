@@ -138,6 +138,7 @@ return array(
     'Barryvdh\\DomPDF\\' => array($vendorDir . '/barryvdh/laravel-dompdf/src'),
     'Barryvdh\\Debugbar\\' => array($vendorDir . '/barryvdh/laravel-debugbar/src'),
     'BaconQrCode\\' => array($vendorDir . '/bacon/bacon-qr-code/src'),
+    'Aymanalhattami\\FilamentSlimScrollbar\\' => array($vendorDir . '/aymanalhattami/filament-slim-scrollbar/src'),
     'Ariaieboy\\FilamentCurrency\\Database\\Factories\\' => array($vendorDir . '/ariaieboy/filament-currency/database/factories'),
     'Ariaieboy\\FilamentCurrency\\' => array($vendorDir . '/ariaieboy/filament-currency/src'),
     'App\\' => array($baseDir . '/app', $vendorDir . '/laravel/pint/app'),

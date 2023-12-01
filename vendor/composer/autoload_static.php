@@ -27,9 +27,9 @@ class ComposerStaticInitdb91332c8d233d372907adee6db0160e
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         'b69d5f1f95cd1ed438c038b6cbcc45b5' => __DIR__ . '/..' . '/filament/notifications/src/Testing/Autoload.php',
-        'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '89e9938b64b06cc502d7ceca69a380fe' => __DIR__ . '/..' . '/filament/filament/src/global_helpers.php',
         'ebb446bb6d02e998480945fbbb73dc64' => __DIR__ . '/..' . '/filament/filament/src/helpers.php',
+        'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '3bd81c9b8fcc150b69d8b63b4d2ccf23' => __DIR__ . '/..' . '/spatie/flare-client-php/src/helpers.php',
         '35a6ad97d21e794e7e22a17d806652e4' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Functions.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -242,6 +242,7 @@ class ComposerStaticInitdb91332c8d233d372907adee6db0160e
         ),
         'A' => 
         array (
+            'Aymanalhattami\\FilamentSlimScrollbar\\' => 37,
             'Ariaieboy\\FilamentCurrency\\Database\\Factories\\' => 46,
             'Ariaieboy\\FilamentCurrency\\' => 27,
             'App\\' => 4,
@@ -784,6 +785,10 @@ class ComposerStaticInitdb91332c8d233d372907adee6db0160e
         array (
             0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
         ),
+        'Aymanalhattami\\FilamentSlimScrollbar\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aymanalhattami/filament-slim-scrollbar/src',
+        ),
         'Ariaieboy\\FilamentCurrency\\Database\\Factories\\' => 
         array (
             0 => __DIR__ . '/..' . '/ariaieboy/filament-currency/database/factories',
@@ -828,7 +833,6 @@ class ComposerStaticInitdb91332c8d233d372907adee6db0160e
         'App\\Enums\\VehicleType' => __DIR__ . '/../..' . '/app/Enums/VehicleType.php',
         'App\\Event\\CreateUserEvent' => __DIR__ . '/../..' . '/app/Event/CreateUserEvent.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
-        'App\\Filament\\Pages\\ManagePreferences' => __DIR__ . '/../..' . '/app/Filament/Pages/ManagePreferences.php',
         'App\\Filament\\Pages\\Settings\\General' => __DIR__ . '/../..' . '/app/Filament/Pages/Settings/General.php',
         'App\\Filament\\Pages\\Statistik\\StatistikWarga' => __DIR__ . '/../..' . '/app/Filament/Pages/Statistik/StatistikWarga.php',
         'App\\Filament\\Pages\\Tenancy\\EditBuildingProfile' => __DIR__ . '/../..' . '/app/Filament/Pages/Tenancy/EditBuildingProfile.php',
@@ -844,6 +848,10 @@ class ComposerStaticInitdb91332c8d233d372907adee6db0160e
         'App\\Filament\\Resources\\DocumentTypeResource\\Pages\\CreateDocumentType' => __DIR__ . '/../..' . '/app/Filament/Resources/DocumentTypeResource/Pages/CreateDocumentType.php',
         'App\\Filament\\Resources\\DocumentTypeResource\\Pages\\EditDocumentType' => __DIR__ . '/../..' . '/app/Filament/Resources/DocumentTypeResource/Pages/EditDocumentType.php',
         'App\\Filament\\Resources\\DocumentTypeResource\\Pages\\ListDocumentTypes' => __DIR__ . '/../..' . '/app/Filament/Resources/DocumentTypeResource/Pages/ListDocumentTypes.php',
+        'App\\Filament\\Resources\\EducationResource' => __DIR__ . '/../..' . '/app/Filament/Resources/EducationResource.php',
+        'App\\Filament\\Resources\\EducationResource\\Pages\\CreateEducation' => __DIR__ . '/../..' . '/app/Filament/Resources/EducationResource/Pages/CreateEducation.php',
+        'App\\Filament\\Resources\\EducationResource\\Pages\\EditEducation' => __DIR__ . '/../..' . '/app/Filament/Resources/EducationResource/Pages/EditEducation.php',
+        'App\\Filament\\Resources\\EducationResource\\Pages\\ListEducation' => __DIR__ . '/../..' . '/app/Filament/Resources/EducationResource/Pages/ListEducation.php',
         'App\\Filament\\Resources\\EmploymentResource' => __DIR__ . '/../..' . '/app/Filament/Resources/EmploymentResource.php',
         'App\\Filament\\Resources\\EmploymentResource\\Pages\\CreateEmployment' => __DIR__ . '/../..' . '/app/Filament/Resources/EmploymentResource/Pages/CreateEmployment.php',
         'App\\Filament\\Resources\\EmploymentResource\\Pages\\EditEmployment' => __DIR__ . '/../..' . '/app/Filament/Resources/EmploymentResource/Pages/EditEmployment.php',
@@ -932,6 +940,7 @@ class ComposerStaticInitdb91332c8d233d372907adee6db0160e
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'Ariaieboy\\FilamentCurrency\\FilamentCurrencyServiceProvider' => __DIR__ . '/..' . '/ariaieboy/filament-currency/src/FilamentCurrencyServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+        'Aymanalhattami\\FilamentSlimScrollbar\\FilamentSlimScrollbarServiceProvider' => __DIR__ . '/..' . '/aymanalhattami/filament-slim-scrollbar/src/FilamentSlimScrollbarServiceProvider.php',
         'BaconQrCode\\Common\\BitArray' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/BitArray.php',
         'BaconQrCode\\Common\\BitMatrix' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/BitMatrix.php',
         'BaconQrCode\\Common\\BitUtils' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/BitUtils.php',
