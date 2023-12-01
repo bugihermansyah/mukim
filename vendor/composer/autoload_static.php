@@ -27,9 +27,9 @@ class ComposerStaticInitdb91332c8d233d372907adee6db0160e
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         'b69d5f1f95cd1ed438c038b6cbcc45b5' => __DIR__ . '/..' . '/filament/notifications/src/Testing/Autoload.php',
+        'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '89e9938b64b06cc502d7ceca69a380fe' => __DIR__ . '/..' . '/filament/filament/src/global_helpers.php',
         'ebb446bb6d02e998480945fbbb73dc64' => __DIR__ . '/..' . '/filament/filament/src/helpers.php',
-        'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '3bd81c9b8fcc150b69d8b63b4d2ccf23' => __DIR__ . '/..' . '/spatie/flare-client-php/src/helpers.php',
         '35a6ad97d21e794e7e22a17d806652e4' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Functions.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -119,11 +119,6 @@ class ComposerStaticInitdb91332c8d233d372907adee6db0160e
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
         ),
-        'Q' => 
-        array (
-            'Quadrubo\\FilamentModelSettings\\Database\\Factories\\' => 50,
-            'Quadrubo\\FilamentModelSettings\\' => 31,
-        ),
         'P' => 
         array (
             'Psy\\' => 4,
@@ -189,7 +184,6 @@ class ComposerStaticInitdb91332c8d233d372907adee6db0160e
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
             'GrahamCampbell\\ResultType\\' => 26,
-            'Glorand\\Model\\Settings\\' => 23,
         ),
         'F' => 
         array (
@@ -456,14 +450,6 @@ class ComposerStaticInitdb91332c8d233d372907adee6db0160e
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
         ),
-        'Quadrubo\\FilamentModelSettings\\Database\\Factories\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/quadrubo/filament-model-settings/database/factories',
-        ),
-        'Quadrubo\\FilamentModelSettings\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/quadrubo/filament-model-settings/src',
-        ),
         'Psy\\' => 
         array (
             0 => __DIR__ . '/..' . '/psy/psysh/src',
@@ -635,10 +621,6 @@ class ComposerStaticInitdb91332c8d233d372907adee6db0160e
         'GrahamCampbell\\ResultType\\' => 
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
-        ),
-        'Glorand\\Model\\Settings\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/glorand/laravel-model-settings/src',
         ),
         'Fruitcake\\Cors\\' => 
         array (
@@ -3257,20 +3239,6 @@ class ComposerStaticInitdb91332c8d233d372907adee6db0160e
         'FontLib\\WOFF\\TableDirectoryEntry' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/WOFF/TableDirectoryEntry.php',
         'Fruitcake\\Cors\\CorsService' => __DIR__ . '/..' . '/fruitcake/php-cors/src/CorsService.php',
         'Fruitcake\\Cors\\Exceptions\\InvalidOptionException' => __DIR__ . '/..' . '/fruitcake/php-cors/src/Exceptions/InvalidOptionException.php',
-        'Glorand\\Model\\Settings\\Console\\CreateSettingsFieldForModel' => __DIR__ . '/..' . '/glorand/laravel-model-settings/src/Console/CreateSettingsFieldForModel.php',
-        'Glorand\\Model\\Settings\\Console\\CreateSettingsTable' => __DIR__ . '/..' . '/glorand/laravel-model-settings/src/Console/CreateSettingsTable.php',
-        'Glorand\\Model\\Settings\\Contracts\\SettingsManagerContract' => __DIR__ . '/..' . '/glorand/laravel-model-settings/src/Contracts/SettingsManagerContract.php',
-        'Glorand\\Model\\Settings\\Exceptions\\ModelSettingsException' => __DIR__ . '/..' . '/glorand/laravel-model-settings/src/Exceptions/ModelSettingsException.php',
-        'Glorand\\Model\\Settings\\Managers\\AbstractSettingsManager' => __DIR__ . '/..' . '/glorand/laravel-model-settings/src/Managers/AbstractSettingsManager.php',
-        'Glorand\\Model\\Settings\\Managers\\FieldSettingsManager' => __DIR__ . '/..' . '/glorand/laravel-model-settings/src/Managers/FieldSettingsManager.php',
-        'Glorand\\Model\\Settings\\Managers\\RedisSettingsManager' => __DIR__ . '/..' . '/glorand/laravel-model-settings/src/Managers/RedisSettingsManager.php',
-        'Glorand\\Model\\Settings\\Managers\\TableSettingsManager' => __DIR__ . '/..' . '/glorand/laravel-model-settings/src/Managers/TableSettingsManager.php',
-        'Glorand\\Model\\Settings\\ModelSettingsServiceProvider' => __DIR__ . '/..' . '/glorand/laravel-model-settings/src/ModelSettingsServiceProvider.php',
-        'Glorand\\Model\\Settings\\Models\\ModelSettings' => __DIR__ . '/..' . '/glorand/laravel-model-settings/src/Models/ModelSettings.php',
-        'Glorand\\Model\\Settings\\Traits\\HasSettings' => __DIR__ . '/..' . '/glorand/laravel-model-settings/src/Traits/HasSettings.php',
-        'Glorand\\Model\\Settings\\Traits\\HasSettingsField' => __DIR__ . '/..' . '/glorand/laravel-model-settings/src/Traits/HasSettingsField.php',
-        'Glorand\\Model\\Settings\\Traits\\HasSettingsRedis' => __DIR__ . '/..' . '/glorand/laravel-model-settings/src/Traits/HasSettingsRedis.php',
-        'Glorand\\Model\\Settings\\Traits\\HasSettingsTable' => __DIR__ . '/..' . '/glorand/laravel-model-settings/src/Traits/HasSettingsTable.php',
         'GrahamCampbell\\ResultType\\Error' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Error.php',
         'GrahamCampbell\\ResultType\\Result' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Result.php',
         'GrahamCampbell\\ResultType\\Success' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Success.php',
@@ -7227,15 +7195,6 @@ class ComposerStaticInitdb91332c8d233d372907adee6db0160e
         'Psy\\VersionUpdater\\IntervalChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/IntervalChecker.php',
         'Psy\\VersionUpdater\\NoopChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/NoopChecker.php',
         'Psy\\VersionUpdater\\SelfUpdate' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/SelfUpdate.php',
-        'Quadrubo\\FilamentModelSettings\\Commands\\MakeModelSettingsPageCommand' => __DIR__ . '/..' . '/quadrubo/filament-model-settings/src/Commands/MakeModelSettingsPageCommand.php',
-        'Quadrubo\\FilamentModelSettings\\Exceptions\\HasModelSettingsNotImplementedException' => __DIR__ . '/..' . '/quadrubo/filament-model-settings/src/Exceptions/HasModelSettingsNotImplementedException.php',
-        'Quadrubo\\FilamentModelSettings\\Facades\\FilamentModelSettings' => __DIR__ . '/..' . '/quadrubo/filament-model-settings/src/Facades/FilamentModelSettings.php',
-        'Quadrubo\\FilamentModelSettings\\FilamentModelSettings' => __DIR__ . '/..' . '/quadrubo/filament-model-settings/src/FilamentModelSettings.php',
-        'Quadrubo\\FilamentModelSettings\\FilamentModelSettingsPlugin' => __DIR__ . '/..' . '/quadrubo/filament-model-settings/src/FilamentModelSettingsPlugin.php',
-        'Quadrubo\\FilamentModelSettings\\FilamentModelSettingsServiceProvider' => __DIR__ . '/..' . '/quadrubo/filament-model-settings/src/FilamentModelSettingsServiceProvider.php',
-        'Quadrubo\\FilamentModelSettings\\Pages\\Contracts\\HasModelSettings' => __DIR__ . '/..' . '/quadrubo/filament-model-settings/src/Pages/Contracts/HasModelSettings.php',
-        'Quadrubo\\FilamentModelSettings\\Pages\\ModelSettingsPage' => __DIR__ . '/..' . '/quadrubo/filament-model-settings/src/Pages/ModelSettingsPage.php',
-        'Quadrubo\\FilamentModelSettings\\Testing\\TestsFilamentModelSettings' => __DIR__ . '/..' . '/quadrubo/filament-model-settings/src/Testing/TestsFilamentModelSettings.php',
         'Ramsey\\Collection\\AbstractArray' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractArray.php',
         'Ramsey\\Collection\\AbstractCollection' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractCollection.php',
         'Ramsey\\Collection\\AbstractSet' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractSet.php',
