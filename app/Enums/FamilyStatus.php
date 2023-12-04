@@ -10,7 +10,7 @@ enum FamilyStatus: string implements HasLabel
     case Istri = 'istri';
     case Anak = 'anak';
     case OrangTua = 'orang tua';
-    case ART = 'art';
+    case ART = 'ART';
     case Supir = 'supir';
 
     public function getLabel(): string
