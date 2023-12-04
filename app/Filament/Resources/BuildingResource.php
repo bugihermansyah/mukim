@@ -54,24 +54,27 @@ class BuildingResource extends Resource
                         TextInput::make('block')
                             ->label('Blok')
                             ->live()
-                            ->formatStateUsing(fn ($state) => strtoupper($state))
-                            ->extraInputAttributes(['style' => 'text-transform: uppercase'])
+                            ->extraInputAttributes(['oninput' => 'this.value = this.value.toUpperCase()'])
+                            // ->formatStateUsing(fn ($state) => strtoupper($state))
+                            // ->extraInputAttributes(['style' => 'text-transform: uppercase'])
                             ->afterStateUpdated(fn ($get, $set) => $set('slug', $get('block') . '/' . $get('number')))
                             ->required(),
                         TextInput::make('number')
                             ->label('Nomor')
                             ->live()
+                            ->extraInputAttributes(['oninput' => 'this.value = this.value.toUpperCase()'])
                             // ->extraInputAttributes(['style' => 'text-transform: uppercase'])
                             ->afterStateUpdated(fn ($get, $set) => $set('slug', $get('block') . '/' . $get('number')))
                             ->required(),
                         TextInput::make('slug')
                             ->label('Slug')
+                            ->hidden()
                             // ->extraInputAttributes(['style' => 'text-transform: uppercase'])
                             // ->disabled()
                             ->unique(ignoreRecord: true, column: 'slug')
                             ->required(),
                     ])
-                    ->columns(4),
+                    ->columns(3),
                 Section::make()
                     ->schema([
                         TextInput::make('owner')
@@ -102,14 +105,6 @@ class BuildingResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->groups([
-                Group::make('rtrw.name')
-                    ->label('Wilayah ')
-                    ->collapsible(),
-                Group::make('block')
-                    ->label('Blok ')
-                    ->collapsible(),
-            ])
             ->columns([
                 TextColumn::make('rtrw.name')
                     ->label('RT/RW')
