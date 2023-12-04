@@ -2,10 +2,9 @@
 
 namespace App\Providers\Filament;
 
-use App\Models\Building;
-use App\Models\Rtrw;
-use App\Models\Settings;
+use App\Models\User;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use EightyNine\Approvals\ApprovalPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -13,7 +12,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
+use Glorand\Model\Settings\Models\ModelSettings;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -21,7 +20,6 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Illuminate\Database\Eloquent;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 
 class AdminPanelProvider extends PanelProvider
@@ -33,7 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            // ->brandName(dd($setting))
+            // ->brandName(User::first()->settings()->get('some.setting'))
             // ->topNavigation()
             ->maxContentWidth('full')
             ->sidebarCollapsibleOnDesktop()
@@ -50,6 +48,9 @@ class AdminPanelProvider extends PanelProvider
                 )
             )
             ->databaseNotifications()
+            ->plugins([
+                ApprovalPlugin::make()
+            ])
             ->plugins([
                 FilamentShieldPlugin::make()
                     ->gridColumns([
@@ -71,7 +72,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                // Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
