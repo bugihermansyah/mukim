@@ -76,7 +76,7 @@ class WargaPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_warga');
+        return $user->can('{{ DeleteAny }}');
     }
 
     /**
@@ -88,7 +88,7 @@ class WargaPolicy
      */
     public function forceDelete(User $user, Warga $warga): bool
     {
-        return $user->can('force_delete_warga');
+        return $user->can('{{ ForceDelete }}');
     }
 
     /**
@@ -99,7 +99,7 @@ class WargaPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_warga');
+        return $user->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -145,7 +145,7 @@ class WargaPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_warga');
+        return $user->can('{{ Reorder }}');
     }
 
 }

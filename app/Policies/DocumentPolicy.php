@@ -76,7 +76,7 @@ class DocumentPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_document');
+        return $user->can('{{ DeleteAny }}');
     }
 
     /**
@@ -88,7 +88,7 @@ class DocumentPolicy
      */
     public function forceDelete(User $user, Document $document): bool
     {
-        return $user->can('force_delete_document');
+        return $user->can('{{ ForceDelete }}');
     }
 
     /**
@@ -99,7 +99,7 @@ class DocumentPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_document');
+        return $user->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -145,7 +145,7 @@ class DocumentPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_document');
+        return $user->can('{{ Reorder }}');
     }
 
 }

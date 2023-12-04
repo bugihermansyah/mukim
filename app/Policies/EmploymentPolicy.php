@@ -76,7 +76,7 @@ class EmploymentPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_employment');
+        return $user->can('{{ DeleteAny }}');
     }
 
     /**
@@ -88,7 +88,7 @@ class EmploymentPolicy
      */
     public function forceDelete(User $user, Employment $employment): bool
     {
-        return $user->can('force_delete_employment');
+        return $user->can('{{ ForceDelete }}');
     }
 
     /**
@@ -99,7 +99,7 @@ class EmploymentPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_employment');
+        return $user->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -145,7 +145,7 @@ class EmploymentPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_employment');
+        return $user->can('{{ Reorder }}');
     }
 
 }

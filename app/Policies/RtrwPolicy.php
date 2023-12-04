@@ -76,7 +76,7 @@ class RtrwPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_rtrw');
+        return $user->can('{{ DeleteAny }}');
     }
 
     /**
@@ -88,7 +88,7 @@ class RtrwPolicy
      */
     public function forceDelete(User $user, Rtrw $rtrw): bool
     {
-        return $user->can('force_delete_rtrw');
+        return $user->can('{{ ForceDelete }}');
     }
 
     /**
@@ -99,7 +99,7 @@ class RtrwPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_rtrw');
+        return $user->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -145,7 +145,7 @@ class RtrwPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_rtrw');
+        return $user->can('{{ Reorder }}');
     }
 
 }

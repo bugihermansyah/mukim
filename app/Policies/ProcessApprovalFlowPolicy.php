@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Document_type;
+use RingleSoft\LaravelProcessApproval\Models\ProcessApprovalFlow;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class Document_typePolicy
+class ProcessApprovalFlowPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class Document_typePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_document::type');
+        return $user->can('view_any_approval::flow');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Document_type  $documentType
+     * @param  \RingleSoft\LaravelProcessApproval\Models\ProcessApprovalFlow  $processApprovalFlow
      * @return bool
      */
-    public function view(User $user, Document_type $documentType): bool
+    public function view(User $user, ProcessApprovalFlow $processApprovalFlow): bool
     {
-        return $user->can('view_document::type');
+        return $user->can('view_approval::flow');
     }
 
     /**
@@ -41,31 +41,31 @@ class Document_typePolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_document::type');
+        return $user->can('create_approval::flow');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Document_type  $documentType
+     * @param  \RingleSoft\LaravelProcessApproval\Models\ProcessApprovalFlow  $processApprovalFlow
      * @return bool
      */
-    public function update(User $user, Document_type $documentType): bool
+    public function update(User $user, ProcessApprovalFlow $processApprovalFlow): bool
     {
-        return $user->can('update_document::type');
+        return $user->can('update_approval::flow');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Document_type  $documentType
+     * @param  \RingleSoft\LaravelProcessApproval\Models\ProcessApprovalFlow  $processApprovalFlow
      * @return bool
      */
-    public function delete(User $user, Document_type $documentType): bool
+    public function delete(User $user, ProcessApprovalFlow $processApprovalFlow): bool
     {
-        return $user->can('delete_document::type');
+        return $user->can('delete_approval::flow');
     }
 
     /**
@@ -83,10 +83,10 @@ class Document_typePolicy
      * Determine whether the user can permanently delete.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Document_type  $documentType
+     * @param  \RingleSoft\LaravelProcessApproval\Models\ProcessApprovalFlow  $processApprovalFlow
      * @return bool
      */
-    public function forceDelete(User $user, Document_type $documentType): bool
+    public function forceDelete(User $user, ProcessApprovalFlow $processApprovalFlow): bool
     {
         return $user->can('{{ ForceDelete }}');
     }
@@ -106,12 +106,12 @@ class Document_typePolicy
      * Determine whether the user can restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Document_type  $documentType
+     * @param  \RingleSoft\LaravelProcessApproval\Models\ProcessApprovalFlow  $processApprovalFlow
      * @return bool
      */
-    public function restore(User $user, Document_type $documentType): bool
+    public function restore(User $user, ProcessApprovalFlow $processApprovalFlow): bool
     {
-        return $user->can('restore_document::type');
+        return $user->can('restore_approval::flow');
     }
 
     /**
@@ -122,17 +122,17 @@ class Document_typePolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_document::type');
+        return $user->can('restore_any_approval::flow');
     }
 
     /**
      * Determine whether the user can replicate.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Document_type  $documentType
+     * @param  \RingleSoft\LaravelProcessApproval\Models\ProcessApprovalFlow  $processApprovalFlow
      * @return bool
      */
-    public function replicate(User $user, Document_type $documentType): bool
+    public function replicate(User $user, ProcessApprovalFlow $processApprovalFlow): bool
     {
         return $user->can('{{ Replicate }}');
     }
