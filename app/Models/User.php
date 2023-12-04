@@ -4,8 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
-use Filament\Facades\Filament;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
@@ -18,9 +16,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Builder;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser, HasTenants
@@ -115,7 +110,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants
         //     'user' => $role === 'warga',
         //     default => false
         // };
-        if ($panel->getId() === 'admin' && $roles->contains('super_admin')) {
+        if ($panel->getId() === 'admin' && $roles->contains('super_admin') || $roles->contains('ketua_rt') || $roles->contains('ketua_rw') || $roles->contains('pengurus') || $roles->contains('bendahara')) {
             return true;
         }else if ($panel->getId() === 'user' && $roles->contains('warga')) {
             return true;

@@ -15,7 +15,7 @@ class StatistikAgama extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
-    protected static string $view = 'filament.pages.statistik-agama';
+    protected static string $view = 'filament.pages.statistik.statistik-agama';
 
     protected static bool $shouldRegisterNavigation = false;
 
