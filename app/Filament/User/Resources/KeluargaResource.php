@@ -2,17 +2,30 @@
 
 namespace App\Filament\User\Resources;
 
+use App\Enums\BloodType;
+use App\Enums\FamilyStatus;
+use App\Enums\GenderType;
+use App\Enums\ReligionList;
 use App\Filament\User\Resources\KeluargaResource\Pages;
 use App\Filament\User\Resources\KeluargaResource\RelationManagers;
+use App\Models\Building;
+use App\Models\Education;
+use App\Models\Employment;
+use App\Models\Rtrw;
+use App\Models\User;
 use App\Models\Warga;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -30,6 +43,8 @@ class KeluargaResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Keluarga';
 
+    protected static ?string $recordTitleAttribute = 'full_name';
+
     protected static ?string $slug = 'keluarga';
 
     protected static ?string $tenantOwnershipRelationshipName = 'building';
@@ -42,87 +57,107 @@ class KeluargaResource extends Resource
                     ->schema([
                         Section::make()
                             ->schema([
-                                TextInput::make('name')
+                                TextInput::make('nik')
+                                    ->label('NIK')
+                                    ->placeholder('Nomor Induk Kependudukan')
+                                    ->numeric()
+                                    ->length(16),
+                                TextInput::make('full_name')
+                                    ->label('Nama lengkap')
+                                    ->placeholder('Nama lengkap sesuai KTP')
                                     ->required(),
-
-                                TextInput::make('slug')
-                                    ->disabled(),
+                                TextInput::make('birthplace')
+                                    ->label('Tempat lahir')
+                                    ->placeholder('Nama daerah tempat lahir')
+                                    ->required(),
+                                DatePicker::make('dob')
+                                    ->label('Tanggal lahir')
+                                    ->required(),
+                                Select::make('religion')
+                                    ->label('Agama')
+                                    ->options(ReligionList::class)
+                                    ->searchable()
+                                    ->required(),
+                                Select::make('employment_id')
+                                    ->label('Pekerjaan')
+                                    ->options(Employment::query()->pluck('name','id'))
+                                    ->searchable()
+                                    ->required(),
+                                Radio::make('gender')
+                                    ->label('Jenis kelamin')
+                                    ->options(GenderType::class)
+                                    ->required(),
+                                Radio::make('citizen')
+                                    ->label('Kewarganegaraan')
+                                    ->options([
+                                        'WNI' => 'WNI',
+                                        'WNA' => 'WNA'
+                                    ])
+                                    ->default('WNI')
+                                    ->descriptions([
+                                        'WNI' => 'Warga Negara Indonesia',
+                                        'WNA' => 'Warga Negara Asing'
+                                    ])
+                                    ->required(),
                             ])
                             ->columns(2),
-
-                        Section::make('Images')
-                            ->collapsible(),
-
-                        Section::make('Pricing')
-                            ->schema([
-                                TextInput::make('price')
-                                    ->numeric()
-                                    ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
-                                    ->required(),
-
-                                TextInput::make('old_price')
-                                    ->label('Compare at price')
-                                    ->numeric()
-                                    ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
-                                    ->required(),
-
-                                TextInput::make('cost')
-                                    ->label('Cost per item')
-                                    ->helperText('Customers won\'t see this price.')
-                                    ->numeric()
-                                    ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
-                                    ->required(),
-                            ])
-                            ->columns(2),
-                        Section::make('Alamat')
+                        Section::make()
                             ->schema([
                                 Textarea::make('address')
                                     ->label('Alamat')
-                                    ->columnSpan('full')
-                                    ->required(),
+                                    ->columnSpan('full'),
 
                                 TextInput::make('rtrw')
-                                    ->label('RT/RW')
-                                    ->required(),
+                                    ->label('RT/RW'),
 
                                 TextInput::make('village')
-                                    ->label('Kel/Desa')
-                                    ->required(),
+                                    ->label('Kel/Desa'),
 
-                                TextInput::make('security_stock')
-                                    ->label('Kecamatan')
-                                    ->required(),
+                                TextInput::make('subdistrict')
+                                    ->label('Kecamatan'),
                             ])
                             ->columns(3),
-
-                        Section::make('Shipping')
-                            ->schema([
-                                TextInput::make('backorder')
-                                    ->label('This product can be returned'),
-
-                                TextInput::make('requires_shipping')
-                                    ->label('This product will be shipped'),
-                            ])
-                            ->columns(2),
                     ])
                     ->columnSpan(['lg' => 2]),
 
                 Group::make()
                     ->schema([
-                        Section::make('Status')
+                        Section::make('Foto')
                             ->schema([
+                                FileUpload::make('photo')
+                                    ->label('Foto')
+                            ])
+                            ->collapsed(),
 
-                                DatePicker::make('published_at')
-                                    ->label('Availability')
-                                    ->default(now())
-                                    ->required(),
+                        Section::make()
+                            ->schema([
+                                TextInput::make('handphone')
+                                    ->label('Handphone')
+                                    ->tel()
+                                    ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/'),
+                                TextInput::make('telephone')
+                                    ->label('Telephone')
+                                    ->placeholder('Telephone rumah')
+                                    ->tel()
+                                    ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/'),
                             ]),
 
-                        Section::make('Associations')
+                        Section::make()
                             ->schema([
-                                Select::make('shop_brand_id'),
-
-                                Select::make('categories'),
+                                Select::make('relationship_family')
+                                    ->label('Hubungan keluarga')
+                                    ->options(FamilyStatus::class)
+                                    ->searchable()
+                                    ->required(),
+                                Select::make('blood_type')
+                                    ->label('Gol. Darah')
+                                    ->options(BloodType::class)
+                                    ->searchable(),
+                                Select::make('education_id')
+                                    ->label('Pendidikan')
+                                    ->options(Education::query()->pluck('name', 'id'))
+                                    ->searchable()
+                                    ->required(),
                             ]),
                     ])
                     ->columnSpan(['lg' => 1]),
@@ -134,9 +169,25 @@ class KeluargaResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('rtrw.name')
+                    ->label('RT/RW')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('building.slug')
+                    ->label('Rumah')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('nik')
+                    ->label('NIK')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('full_name')
                     ->label('Nama Lengkap')
                     ->searchable(),
+                TextColumn::make('birthplace')
+                    ->label('Tempat Lahir')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('dob')
                     ->label('Tanggal lahir')
                     ->date('d M Y')
@@ -148,18 +199,45 @@ class KeluargaResource extends Resource
                 TextColumn::make('religion')
                     ->label('Agama')
                     ->formatStateUsing(fn (string $state): string => ucwords(__("{$state}")))
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('gender')
+                    ->label('Jenis kelamin')                    
+                    ->formatStateUsing(fn (string $state): string => ucwords(__("{$state}")))
                     ->searchable(),
+                TextColumn::make('blood_type')
+                    ->label('Gol. Darah')
+                    ->searchable(),
+                TextColumn::make('employment.name')
+                    ->label('Pekerjaan')
+                    ->searchable(),
+                TextColumn::make('education.name')
+                    ->label('Pendidikan')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('handphone')
+                    ->label('Handphone')
+                    ->searchable(),
+                TextColumn::make('telephone')
+                    ->label('Telephone')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('citizen')
+                    ->label('Kewarganegaraan')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make(),
