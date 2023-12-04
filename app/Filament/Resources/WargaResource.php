@@ -8,14 +8,13 @@ use App\Enums\GenderType;
 use App\Enums\ReligionList;
 use App\Event\CreateUserEvent;
 use App\Filament\Resources\WargaResource\Pages;
-use App\Filament\Resources\WargaResource\RelationManagers;
 use App\Models\Building;
 use App\Models\Education;
 use App\Models\Employment;
 use App\Models\Rtrw;
 use App\Models\User;
 use App\Models\Warga;
-use Filament\Forms;
+use Filament\Infolists\Infolist;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
@@ -26,15 +25,20 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
+use Filament\Infolists\Components\Grid;
+use Filament\Infolists\Components\Group as InfoListGroup;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\Section as InfoListSection;
+use Filament\Infolists\Components\Split;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Collection;
-
 class WargaResource extends Resource
 {
     protected static ?string $model = Warga::class;
@@ -227,6 +231,7 @@ class WargaResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('gender')
                     ->label('Jenis kelamin')
+                    ->formatStateUsing(fn (string $state): string => ucwords(__("{$state}")))
                     ->searchable(),
                 TextColumn::make('blood_type')
                     ->label('Gol. Darah')
@@ -254,6 +259,9 @@ class WargaResource extends Resource
                 //
             ])
             ->actions([
+                // \EightyNine\Approvals\Tables\Actions\ApprovalActions::make(
+                //         Tables\Actions\Action::make("Done")
+                // ),
                 Tables\Actions\Action::make('create_user')
                     ->label('Buat Akun')
                     ->icon('heroicon-m-user-plus')
@@ -269,6 +277,7 @@ class WargaResource extends Resource
                             ->success()
                             ->send();
                     }),
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
 
             ])
@@ -282,6 +291,105 @@ class WargaResource extends Resource
             ]);
     }
     
+    
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                InfoListSection::make()
+                    ->schema([
+                        Split::make([
+                            Grid::make(3)
+                            ->schema([
+                                ImageEntry::make('photo')
+                                    ->defaultImageUrl(url('storage/default-photo-profile.jpg'))
+                                    ->hiddenLabel()
+                                    ->grow(false),
+                                InfoListGroup::make([
+                                    TextEntry::make('rtrw.name')
+                                        ->label('RT/RW')
+                                        ->weight(FontWeight::Bold),
+                                    TextEntry::make('building.slug')
+                                        ->label('Blok Rumah')
+                                        ->weight(FontWeight::Bold),
+                                ])->columns(2),
+                            ])
+                        ])->from('lg'),
+                    ]),
+                InfoListSection::make('Data Diri')
+                    ->description('Informasi data diri')
+                    ->aside()
+                    ->schema([
+                        InfoListGroup::make([
+                            TextEntry::make('full_name')
+                                ->label('Nama Lengkap')
+                                ->placeholder('-'),
+                            TextEntry::make('nik')
+                                ->label('NIK')
+                                ->placeholder('-'),
+                        ])->columns(3),
+                        
+                        InfoListGroup::make([
+                            TextEntry::make('gender')
+                                ->label('Jenis Kelamin')
+                                ->placeholder('-'),
+                            TextEntry::make('birthplace')
+                                ->label('Tempat lahir')
+                                ->placeholder('-'),
+                            TextEntry::make('dob')
+                                ->label('Tanggal lahir')
+                                ->date('d F Y')
+                                ->placeholder('-'),
+                            TextEntry::make('religion')
+                                ->label('Agama')
+                                ->formatStateUsing(fn (string $state): string => ucwords(__("{$state}")))
+                                ->placeholder('-'),
+                            TextEntry::make('blood_type')
+                                ->label('Gol. Darah')
+                                ->placeholder('-'),
+                            TextEntry::make('employment.name')
+                                ->label('Pekerjaan')
+                                ->placeholder('-'),
+                            TextEntry::make('education.name')
+                                ->label('Gol. Darah')
+                                ->placeholder('-'),
+                            TextEntry::make('relationship_family')
+                                ->label('Status Keluarga')
+                                ->placeholder('-'),
+                            TextEntry::make('handphone')
+                                ->label('Handphone')
+                                ->placeholder('-'),
+                            TextEntry::make('telephone')
+                                ->label('Telephone')
+                                ->placeholder('-'),
+                            TextEntry::make('citizen')
+                                ->label('Kewarganegaraan')
+                                ->formatStateUsing(fn (string $state): string => strtoupper(__("{$state}")))
+                                ->placeholder('-'),
+                        ])->columns(3)
+                    ]),
+                InfoListSection::make('Alamat')
+                    ->description('Alamat lengkap berdasarkan Kartu Tanda Penduduk')
+                    ->aside()
+                    ->schema([
+                        TextEntry::make('address')
+                            ->label('Alamat')
+                            ->placeholder('-'),
+                        InfoListGroup::make([
+                            TextEntry::make('rtrw')
+                                ->label('RT/RW')
+                                ->placeholder('-'),
+                            TextEntry::make('village')
+                                ->label('Desa/Kelurahan')
+                                ->placeholder('-'),
+                            TextEntry::make('subdistrict')
+                                ->label('Kecamatan')
+                                ->placeholder('-'),
+                        ])->columns(3)
+                    ]),
+            ]);
+    }
+
     public static function getRelations(): array
     {
         return [
@@ -294,6 +402,7 @@ class WargaResource extends Resource
         return [
             'index' => Pages\ListWargas::route('/'),
             'create' => Pages\CreateWarga::route('/create'),
+            'view' => Pages\ViewWarga::route('/{record}'),
             'edit' => Pages\EditWarga::route('/{record}/edit'),
         ];
     }    
