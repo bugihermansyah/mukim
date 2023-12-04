@@ -22,6 +22,8 @@ class EmploymentResource extends Resource
     protected static ?string $navigationLabel = 'Pekerjaan';
 
     protected static ?string $pluralModelLabel = 'Pekerjaan';
+
+    protected static ?string $navigationParentItem = 'Warga';
     
     protected static ?string $navigationGroup = 'Manajemen Warga';
     

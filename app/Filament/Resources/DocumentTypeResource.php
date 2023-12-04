@@ -22,6 +22,8 @@ class DocumentTypeResource extends Resource
     protected static ?string $navigationLabel = 'Surat Keterangan';
 
     protected static ?string $pluralModelLabel = 'Surat Keterangan';
+
+    protected static ?string $navigationParentItem = 'Surat';
     
     protected static ?string $navigationGroup = 'Kepengurusan';
 
