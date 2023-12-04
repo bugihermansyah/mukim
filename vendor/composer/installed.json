@@ -156,6 +156,58 @@
             "install-path": "../ariaieboy/filament-currency"
         },
         {
+            "name": "aymanalhattami/filament-page-with-sidebar",
+            "version": "2.4.2",
+            "version_normalized": "2.4.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aymanalhattami/filament-page-with-sidebar.git",
+                "reference": "5b1fa322e0a913a36925d8fd7e83e085970db539"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aymanalhattami/filament-page-with-sidebar/zipball/5b1fa322e0a913a36925d8fd7e83e085970db539",
+                "reference": "5b1fa322e0a913a36925d8fd7e83e085970db539",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^3.0",
+                "laravel/framework": "^10.0",
+                "spatie/laravel-package-tools": "^1.0"
+            },
+            "time": "2023-11-01T14:17:52+00:00",
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "AymanAlhattami\\FilamentPageWithSidebar\\FilamentPageWithSidebarServiceProvider"
+                    ]
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "AymanAlhattami\\FilamentPageWithSidebar\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ayman Alhattami",
+                    "email": "ayman.m.alhattami@gmail.com"
+                }
+            ],
+            "description": "Organize resource pages in sidebar instead of putting all the buttons and links elsewhere in order to make navigation between pages more comfortable.",
+            "support": {
+                "issues": "https://github.com/aymanalhattami/filament-page-with-sidebar/issues",
+                "source": "https://github.com/aymanalhattami/filament-page-with-sidebar/tree/2.4.2"
+            },
+            "install-path": "../aymanalhattami/filament-page-with-sidebar"
+        },
+        {
             "name": "aymanalhattami/filament-slim-scrollbar",
             "version": "2.0.0",
             "version_normalized": "2.0.0.0",
