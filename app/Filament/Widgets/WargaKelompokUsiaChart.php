@@ -32,6 +32,11 @@ class WargaKelompokUsiaChart extends ApexChartWidget
      */
     protected static ?string $heading = 'Statistik Kelompok Usia';
 
+    public function getHeading(): string
+    {
+        return 'Statistik Kelompok Usia';
+    }
+
     protected function getFooter(): string|View
     {
         return new HtmlString('<p class="text-xs"><b>Balita</b> 0 - 5 tahun | <b>Anak-Anak</b> 6 - 12 tahun | <b>Remaja</b> 13 - 18 tahun | <b>Usia Produktif</b> 19 - 55 tahun | <b>Lansia</b> 56 tahun keatas</p>');
@@ -49,11 +54,6 @@ class WargaKelompokUsiaChart extends ApexChartWidget
                 }),
     
         ];
-    }
-
-    public function getDescription(): ?string
-    {
-        return 'The number of blog posts published per month.';
     }
 
     protected static bool $deferLoading = true;

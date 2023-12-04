@@ -30,6 +30,11 @@ class WargaBloodTypeChart extends ApexChartWidget
      */
     protected static ?string $heading = 'Statistik Gol. Darah';
 
+    public function getHeading(): string
+    {
+        return 'Statistik Gol. Darah';
+    }
+
     protected function getFormSchema(): array
     {
         return [

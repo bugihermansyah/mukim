@@ -29,6 +29,11 @@ class WargaReligionChart extends ApexChartWidget
      * @var string|null
      */
     protected static ?string $heading = 'Statistik Agama';
+    
+    public function getHeading(): string
+    {
+        return 'Statistik Agama';
+    }
 
     protected function getFormSchema(): array
     {

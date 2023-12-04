@@ -29,6 +29,11 @@ class WargaEducationChart extends ApexChartWidget
      * @var string|null
      */
     protected static ?string $heading = 'Statisik Pendidikan';
+    
+    public function getHeading(): string
+    {
+        return 'Statistik Pendidikan';
+    }
 
     protected function getFormSchema(): array
     {
