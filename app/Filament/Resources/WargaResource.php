@@ -39,6 +39,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 class WargaResource extends Resource
 {
     protected static ?string $model = Warga::class;
@@ -290,7 +291,6 @@ class WargaResource extends Resource
                 Tables\Actions\CreateAction::make(),
             ]);
     }
-    
     
     public static function infolist(Infolist $infolist): Infolist
     {
