@@ -72,4 +72,9 @@ class Building extends Model implements HasName
     {
         return $this->hasMany(Order::class);
     }
+  
+    public function announcements(): BelongsToMany
+    {
+        return $this->belongsToMany(Announcement::class, 'announcement_user', 'announcement_id','building_id');    
+    }
 }
