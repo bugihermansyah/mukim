@@ -8,6 +8,7 @@ use EightyNine\Approvals\ApprovalPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -31,8 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            // ->brandName(User::first()->settings()->get('some.setting'))
-            // ->topNavigation()
+            // ->brandName()
             ->maxContentWidth('full')
             ->sidebarCollapsibleOnDesktop()
             ->colors([
@@ -68,6 +68,20 @@ class AdminPanelProvider extends PanelProvider
                         'default' => 1,
                         'sm' => 2,
                     ]),
+            ])
+            ->navigationGroups([
+                NavigationGroup::make()
+                    ->label('Manajemen Warga'),  
+                NavigationGroup::make()
+                    ->label('Kepengurusan'),
+                NavigationGroup::make()
+                    ->label('Informasi'),
+                NavigationGroup::make()
+                    ->label('Configuration')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Pengaturan')
+                    ->collapsed(),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
