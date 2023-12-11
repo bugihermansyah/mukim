@@ -833,6 +833,24 @@
       cleanup22();
     }];
   }
+  function watch(getter, callback) {
+    let firstTime = true;
+    let oldValue;
+    let effectReference = effect(() => {
+      let value = getter();
+      JSON.stringify(value);
+      if (!firstTime) {
+        queueMicrotask(() => {
+          callback(value, oldValue);
+          oldValue = value;
+        });
+      } else {
+        oldValue = value;
+      }
+      firstTime = false;
+    });
+    return () => release(effectReference);
+  }
   function dispatch2(el, name, detail = {}) {
     el.dispatchEvent(new CustomEvent(name, {
       detail,
@@ -2328,6 +2346,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     cloneNode,
     bound: getBinding,
     $data: scope,
+    watch,
     walk,
     data,
     bind: bind2
@@ -2983,23 +3002,15 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   }
   magic("nextTick", () => nextTick);
   magic("dispatch", (el) => dispatch2.bind(dispatch2, el));
-  magic("watch", (el, { evaluateLater: evaluateLater2, effect: effect3 }) => (key, callback) => {
+  magic("watch", (el, { evaluateLater: evaluateLater2, cleanup: cleanup22 }) => (key, callback) => {
     let evaluate22 = evaluateLater2(key);
-    let firstTime = true;
-    let oldValue;
-    let effectReference = effect3(() => evaluate22((value) => {
-      JSON.stringify(value);
-      if (!firstTime) {
-        queueMicrotask(() => {
-          callback(value, oldValue);
-          oldValue = value;
-        });
-      } else {
-        oldValue = value;
-      }
-      firstTime = false;
-    }));
-    el._x_effects.delete(effectReference);
+    let getter = () => {
+      let value;
+      evaluate22((i) => value = i);
+      return value;
+    };
+    let unwatch = watch(getter, callback);
+    cleanup22(unwatch);
   });
   magic("store", getStores);
   magic("data", (el) => scope(el));
@@ -4210,7 +4221,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   wireProperty("$on", (component) => (...params) => listen(component, ...params));
   wireProperty("$dispatch", (component) => (...params) => dispatch3(component, ...params));
   wireProperty("$dispatchSelf", (component) => (...params) => dispatchSelf(component, ...params));
-  wireProperty("$dispatchTo", (component) => (...params) => dispatchTo(component, ...params));
+  wireProperty("$dispatchTo", (component) => (...params) => dispatchTo(...params));
   wireProperty("$upload", (component) => (...params) => upload(component, ...params));
   wireProperty("$uploadMultiple", (component) => (...params) => uploadMultiple(component, ...params));
   wireProperty("$removeUpload", (component) => (...params) => removeUpload(component, ...params));
@@ -4402,7 +4413,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       if (self)
         dispatchSelf(component, name, params);
       else if (to)
-        dispatchTo(component, to, name, params);
+        dispatchTo(to, name, params);
       else
         dispatch3(component, name, params);
     });
@@ -4421,7 +4432,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   function dispatchSelf(component, name, params) {
     dispatchEvent(component.el, name, params, false);
   }
-  function dispatchTo(component, componentName, name, params) {
+  function dispatchTo(componentName, name, params) {
     let targets = componentsByName(componentName);
     targets.forEach((target) => {
       dispatchEvent(target.el, name, params, false);

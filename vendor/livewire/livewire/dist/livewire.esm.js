@@ -1376,6 +1376,24 @@ var require_module_cjs = __commonJS({
         cleanup2();
       }];
     }
+    function watch(getter, callback) {
+      let firstTime = true;
+      let oldValue;
+      let effectReference = effect(() => {
+        let value = getter();
+        JSON.stringify(value);
+        if (!firstTime) {
+          queueMicrotask(() => {
+            callback(value, oldValue);
+            oldValue = value;
+          });
+        } else {
+          oldValue = value;
+        }
+        firstTime = false;
+      });
+      return () => release(effectReference);
+    }
     function dispatch3(el, name, detail = {}) {
       el.dispatchEvent(new CustomEvent(name, {
         detail,
@@ -2871,31 +2889,24 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       cloneNode,
       bound: getBinding,
       $data: scope,
+      watch,
       walk,
       data,
       bind: bind2
     };
     var alpine_default = Alpine22;
-    var import_reactivity9 = __toESM2(require_reactivity());
+    var import_reactivity10 = __toESM2(require_reactivity());
     magic("nextTick", () => nextTick);
     magic("dispatch", (el) => dispatch3.bind(dispatch3, el));
-    magic("watch", (el, { evaluateLater: evaluateLater2, effect: effect3 }) => (key, callback) => {
+    magic("watch", (el, { evaluateLater: evaluateLater2, cleanup: cleanup2 }) => (key, callback) => {
       let evaluate2 = evaluateLater2(key);
-      let firstTime = true;
-      let oldValue;
-      let effectReference = effect3(() => evaluate2((value) => {
-        JSON.stringify(value);
-        if (!firstTime) {
-          queueMicrotask(() => {
-            callback(value, oldValue);
-            oldValue = value;
-          });
-        } else {
-          oldValue = value;
-        }
-        firstTime = false;
-      }));
-      el._x_effects.delete(effectReference);
+      let getter = () => {
+        let value;
+        evaluate2((i) => value = i);
+        return value;
+      };
+      let unwatch = watch(getter, callback);
+      cleanup2(unwatch);
     });
     magic("store", getStores);
     magic("data", (el) => scope(el));
@@ -3719,7 +3730,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       directive2(directiveName, (el) => warn(`You can't use [x-${directiveName}] without first installing the "${name}" plugin here: https://alpinejs.dev/plugins/${slug}`, el));
     }
     alpine_default.setEvaluator(normalEvaluator);
-    alpine_default.setReactivityEngine({ reactive: import_reactivity9.reactive, effect: import_reactivity9.effect, release: import_reactivity9.stop, raw: import_reactivity9.toRaw });
+    alpine_default.setReactivityEngine({ reactive: import_reactivity10.reactive, effect: import_reactivity10.effect, release: import_reactivity10.stop, raw: import_reactivity10.toRaw });
     var src_default = alpine_default;
     var module_default = src_default;
   }
@@ -7934,7 +7945,7 @@ wireProperty("$commit", (component) => async () => await requestCommit(component
 wireProperty("$on", (component) => (...params) => listen(component, ...params));
 wireProperty("$dispatch", (component) => (...params) => dispatch2(component, ...params));
 wireProperty("$dispatchSelf", (component) => (...params) => dispatchSelf(component, ...params));
-wireProperty("$dispatchTo", (component) => (...params) => dispatchTo(component, ...params));
+wireProperty("$dispatchTo", (component) => (...params) => dispatchTo(...params));
 wireProperty("$upload", (component) => (...params) => upload(component, ...params));
 wireProperty("$uploadMultiple", (component) => (...params) => uploadMultiple(component, ...params));
 wireProperty("$removeUpload", (component) => (...params) => removeUpload(component, ...params));
@@ -8127,7 +8138,7 @@ function dispatchEvents(component, dispatches) {
     if (self2)
       dispatchSelf(component, name, params);
     else if (to)
-      dispatchTo(component, to, name, params);
+      dispatchTo(to, name, params);
     else
       dispatch2(component, name, params);
   });
@@ -8146,7 +8157,7 @@ function dispatchGlobal(name, params) {
 function dispatchSelf(component, name, params) {
   dispatchEvent(component.el, name, params, false);
 }
-function dispatchTo(component, componentName, name, params) {
+function dispatchTo(componentName, name, params) {
   let targets = componentsByName(componentName);
   targets.forEach((target) => {
     dispatchEvent(target.el, name, params, false);
